@@ -20,17 +20,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
         
-        let cube = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.01)
+        let earth = SCNSphere(radius: 0.1)
         //give material to cube
         let material = SCNMaterial()
-        material.diffuse.contents = UIColor.green
+        material.diffuse.contents = UIImage(named: "art.scnassets/8k_earth.jpg")
        
-        cube.materials = [material]
+        earth.materials = [material]
         
         //create node
         let node = SCNNode()
         node.position = SCNVector3Make(0, 0.1, -0.5)
-        node.geometry = cube
+        node.geometry = earth
         
         sceneView.scene.rootNode.addChildNode(node)
         sceneView.autoenablesDefaultLighting = true
