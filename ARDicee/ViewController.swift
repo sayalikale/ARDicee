@@ -24,6 +24,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         //give material to cube
         let material = SCNMaterial()
         material.diffuse.contents = UIColor.green
+       
         cube.materials = [material]
         
         //create node
