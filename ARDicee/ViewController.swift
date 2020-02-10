@@ -93,4 +93,28 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         node.addChildNode(planeNode)
     }
  
+    
+    //detect the touch
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first as! UITouch
+        if(touch.view == self.sceneView){
+           // print("touch working")
+            let TouchLocation:CGPoint = touch.location(in: sceneView)
+             let result = sceneView.hitTest(TouchLocation, types: .existingPlaneUsingExtent)
+            
+            if let hitResult = result.first
+            {
+                // Create a new scene
+                        let DiceScene = SCNScene(named: "art.scnassets/diceCollada.scn")!
+                       if let DiceNode = DiceScene.rootNode.childNode(withName: "Dice", recursively: true)
+                       {
+                        DiceNode.position = SCNVector3Make(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y + DiceNode.boundingSphere.radius, hitResult.worldTransform.columns.3.z)
+                        sceneView.scene.rootNode.addChildNode(DiceNode)
+                        }
+            }
+            else{
+                print("touch outside!")
+            }
+        }
+    }
 }
